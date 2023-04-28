@@ -12,12 +12,8 @@ public class VendaProfile : Profile
                 opt => opt.MapFrom(src => $"{src.Id}")
             )
             .ForMember(
-                dest => dest.IdVendedor,
-                opt => opt.MapFrom(src => $"{src.IdVendedor}")
-            )
-            .ForMember(
-                dest => dest.IdStatus,
-                opt => opt.MapFrom(src => $"{src.IdStatus}")
+                dest => dest.Status,
+                opt => opt.MapFrom(src => $"{src.Status}")
             )
             .ForMember(
                 dest => dest.DataPedido,

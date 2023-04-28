@@ -14,5 +14,7 @@ namespace VendasBMGTeste.Infra.DBContext
         public DbSet<Venda> Vendas { get; set; }
 
         public DbSet<Produto> Produtos { get; set; }
+
+        public DbSet<Vendedor> Vendedor { get; set; }
     }
 }

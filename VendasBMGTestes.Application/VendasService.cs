@@ -12,6 +12,7 @@ using VendasBMGTestes.Application.Dtos;
 using VendasBMGTestes.Application.Interfaces;
 using AutoMapper;
 using VendasBMGTeste.Domain.Interfaces;
+using VendasBMGTestes.Application.Validators;
 
 namespace VendasBMGTestes.Application
 {
@@ -35,16 +36,16 @@ namespace VendasBMGTestes.Application
             try
             {
                 var venda = _mapper.Map<Venda>(model);
-                venda.Id = model.Id;
 
                 _baseRepo.Add<Venda>(venda);
 
                 if (await _baseRepo.SaveChangesAsync())
                 {
-                    var vendaRetorno = await _vendaRepo.GetEventoByIdAsync(venda.Id);
+                    var vendaRetorno = await _vendaRepo.GetVendaByIdAsync(venda.Id);
 
                     return _mapper.Map<VendaDto>(vendaRetorno);
                 }
+
                 return null;
             }
             catch (Exception ex)
@@ -54,13 +55,31 @@ namespace VendasBMGTestes.Application
 
             //return Task.FromResult(model);
         }
-        public Task<VendaDto> UpdateVenda(VendaDto model) {
-            return Task.FromResult(model);
+        public async Task<VendaDto> UpdateVenda(VendaUpdateDto vendaUpdateDto) {
+            var venda = await _vendaRepo.GetVendaByIdAsync(vendaUpdateDto.Id);
+
+            if (venda == null) return null;
+
+
+
+            bool statusOk = new VendaUpdateValidation(venda.Status, vendaUpdateDto.Status).IsValidUpdate();
+            if (statusOk)
+            {
+                venda.Status = vendaUpdateDto.Status;
+                _baseRepo.Update<Venda>(venda);
+
+                if (await _baseRepo.SaveChangesAsync())
+                {
+                    return _mapper.Map<VendaDto>(venda);
+                }
+
+            }
+            return null;
         }
         public async Task<VendaDto> GetVendaByIdAsync(int vendaId) {
             try
             {
-                var venda = await _vendaRepo.GetEventoByIdAsync(vendaId);
+                var venda = await _vendaRepo.GetVendaByIdAsync(vendaId);
                 if (venda == null) return null;
 
                 var resultado = _mapper.Map<VendaDto>(venda);

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VendasBMGTeste.Domain.Models;
 
 namespace VendasBMGTestes.Application.Dtos
 {
@@ -11,12 +12,12 @@ namespace VendasBMGTestes.Application.Dtos
     {
         public int Id { get; set; }
 
-        public int IdVendedor { get; set; }
+        public VendedorDto Vendedor { get; set; } = new VendedorDto();
 
-        public int IdStatus { get; set; }
+        public string Status { get; set; } = "Aguardando Pagamento";
 
         public DateTime DataPedido { get; set; }
 
-        public List<ProdutoDto>? Produtos { get; set; }
+        public List<ProdutoDto> Produtos { get; set; } = new List<ProdutoDto>();
     }
 }

@@ -9,6 +9,6 @@ namespace VendasBMGTeste.Domain.Interfaces
 {
     public interface IVendaRepository
     {
-        Task<Venda> GetEventoByIdAsync(int id);
+        Task<Venda> GetVendaByIdAsync(int id);
     }
 }

@@ -19,9 +19,10 @@ namespace VendasBMGTeste.Infra
             _context = context;
         }
 
-        public async Task<Venda> GetEventoByIdAsync(int id)
+        public async Task<Venda> GetVendaByIdAsync(int id)
         {
             IQueryable<Venda> query = _context.Vendas
+                .Include(v => v.Vendedor)
                 .Include(v => v.Produtos);
 
             query = query.AsNoTracking().OrderBy(e => e.Id)

@@ -9,10 +9,10 @@ namespace VendasBMGTeste.Domain.Models
         public int Id { get; set; }
 
         [Required]
-        public int IdVendedor { get; set; }
+        public Vendedor Vendedor { get; set; } = new Vendedor();
 
         [Required]
-        public int IdStatus { get; set; }
+        public string Status { get; set; }
 
         [Required]
         public DateTime DataPedido { get; set; }

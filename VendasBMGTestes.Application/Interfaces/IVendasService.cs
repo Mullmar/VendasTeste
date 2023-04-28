@@ -11,7 +11,7 @@ namespace VendasBMGTestes.Application.Interfaces
     public interface IVendasService
     {
         Task<VendaDto> AddVenda(VendaDto model);
-        Task<VendaDto> UpdateVenda(VendaDto model);
+        Task<VendaDto> UpdateVenda(VendaUpdateDto model);
         Task<VendaDto> GetVendaByIdAsync(int vendaId);
     }
 }
